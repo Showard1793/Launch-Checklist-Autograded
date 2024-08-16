@@ -31,31 +31,19 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
     let launchStatus = document.getElementById("launchStatus");
     let faultyItems = document.getElementById("faultyItems");
 
-    //Send alerts if requirements are not met
-        if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
-            alert("All fields are required.");
-        }
-
-        if (pilotStatus === "Is a Number" || copilotStatus === "Is a Number") {
-            alert("Pilot and Co-pilot names must be strings.");
-        }        
-
-        if (fuelStatus === "Not a Number" || cargoStatus === "Not a Number") {
-            alert("Fuel level and cargo mass must be numbers.");
-        }            
-
               
 //CHECK FUEL LEVEL AND CARGOMASS AND UPDATE STATUS
 
-        if (fuelLevel < 10000) {
+        if (fuelLevel < 10000 && cargoMass > 10000) {
             document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
             document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
-            document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch.`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass too heavy for launch";
             faultyItems.style.visibility = "visible";
             launchStatus.innerHTML = "Shuttle Not Ready for Launch";
             launchStatus.style.color = "red";
 
-        } else if (cargoMass > 10000) {
+        } else if (fuelLevel >= 10000 && cargoMass > 10000) {
             document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
             document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
             document.getElementById("fuelStatus").innerHTML = `Fuel level high enough for launch`;
@@ -64,7 +52,16 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
             launchStatus.innerHTML = "Shuttle Not Ready for Launch";
             launchStatus.style.color = "red";
 
-        } else{
+        } else if (fuelLevel < 10000 && cargoMass <= 10000) {
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+            faultyItems.style.visibility = "visible";
+            launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+            launchStatus.style.color = "red";
+
+        } else if (fuelLevel >= 10000 && cargoMass <= 10000){
             document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
             document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
             document.getElementById("fuelStatus").innerHTML = `Fuel level high enough for launch`;
@@ -73,6 +70,29 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
             launchStatus.innerHTML = "Shuttle is Ready for Launch";
             launchStatus.style.color = "green";
         }
+
+    //Send alerts if requirements are not met and hide faulty items
+    if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
+        alert("All fields are required.");
+        faultyItems.style.visibility = "hidden";
+        launchStatus.innerHTML = "Awaiting Information Before Launch";
+        launchStatus.style.color = "black";
+    }
+
+    if (pilotStatus === "Is a Number" || copilotStatus === "Is a Number") {
+        alert("Pilot and Co-pilot names must be strings.");
+        faultyItems.style.visibility = "hidden";
+        launchStatus.innerHTML = "Awaiting Information Before Launch";
+        launchStatus.style.color = "black";
+    }        
+
+    if (fuelStatus === "Not a Number" || cargoStatus === "Not a Number") {
+        alert("Fuel level and cargo mass must be numbers.");
+        faultyItems.style.visibility = "hidden";
+        launchStatus.innerHTML = "Awaiting Information Before Launch";
+        launchStatus.style.color = "black";
+    }    
+
 }
 
           
