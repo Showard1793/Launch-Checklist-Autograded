@@ -21,12 +21,6 @@ function validateInput(input) {
 
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
-    // Validate inputs
-    let pilotStatus = validateInput(pilot);
-    let copilotStatus = validateInput(copilot);
-    let fuelStatus = validateInput(fuelLevel);
-    let cargoStatus = validateInput(cargoMass);
-
     //Create JS variables
     let launchStatus = document.getElementById("launchStatus");
     let faultyItems = document.getElementById("faultyItems");
@@ -71,7 +65,13 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
             launchStatus.style.color = "green";
         }
 
-    //Send alerts if requirements are not met and hide faulty items
+    // Validate inputs
+    let pilotStatus = validateInput(pilot);
+    let copilotStatus = validateInput(copilot);
+    let fuelStatus = validateInput(fuelLevel);
+    let cargoStatus = validateInput(cargoMass);
+
+    //Send alerts if inputes are not valid AND hide faulty items
     if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
         alert("All fields are required.");
         faultyItems.style.visibility = "hidden";
