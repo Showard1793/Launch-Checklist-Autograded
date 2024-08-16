@@ -5,13 +5,12 @@ require('cross-fetch/polyfill');
 // MAKE VALIDATE INPUT FUNCTION+++
 
 function validateInput(input) {
-    //let trimmedInput = input.trim(); 
-
+    
     if (input === "") {
         return "Empty"; 
-    } else if (isNaN(parseFloat(input))) {
+    } else if (isNaN((input))) {
         return "Not a Number";
-    } else if (!isNaN(parseFloat(input))) {
+    } else if (!isNaN((input))) {
         return "Is a Number";
     } else {
         return "Invalid";
