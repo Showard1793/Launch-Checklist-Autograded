@@ -6,7 +6,7 @@ window.addEventListener("load", function() {
     (async function() {
         const planets = await myFetch();
         const selectedPlanet = pickPlanet(planets);
-        
+
         addDestinationInfo(
             document,
             selectedPlanet.name,
@@ -14,7 +14,7 @@ window.addEventListener("load", function() {
             selectedPlanet.star,
             selectedPlanet.distance,
             selectedPlanet.moons,
-            selectedPlanet.image
+            selectedPlanet.image,           
         );
     })();
 

@@ -110,7 +110,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
                         <li>Distance from Earth: ${distance}</li>
                         <li>Number of Moons: ${moons}</li>
                     </ol>
-                    <img src="${imageUrl}" alt="Image of ${name}">
+                    <img src="${imageUrl}">
                 `;
     }
 
