@@ -24,11 +24,83 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
     //Create JS variables
     let launchStatus = document.getElementById("launchStatus");
     let faultyItems = document.getElementById("faultyItems");
+    
+
+    // Validate inputs
+    let pilotStatus = validateInput(pilot);
+    let copilotStatus = validateInput(copilot);
+    let fuelStatus = validateInput(fuelLevel);
+    let cargoStatus = validateInput(cargoMass);
+
+//SEND ALERTS IF INVALID
+
+    let DataAllValid = true;
+
+        if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
+            alert("All fields are required.");
+            faultyItems.style.visibility = "hidden";
+            launchStatus.innerHTML = "Awaiting Information Before Launch";
+            launchStatus.style.color = "black";
+            DataAllValid = false;
+        }
+
+        if (pilotStatus === "Is a Number" || copilotStatus === "Is a Number") {
+            alert("Pilot and Co-pilot names must be strings.");
+            faultyItems.style.visibility = "hidden";
+            launchStatus.innerHTML = "Awaiting Information Before Launch";
+            launchStatus.style.color = "black";
+            DataAllValid = false;
+        }        
+
+        if (fuelStatus === "Not a Number" || cargoStatus === "Not a Number") {
+            alert("Fuel level and cargo mass must be numbers.");
+            faultyItems.style.visibility = "hidden";
+            launchStatus.innerHTML = "Awaiting Information Before Launch";
+            launchStatus.style.color = "black";
+            DataAllValid = false;
+        }    
 
               
-//CHECK FUEL LEVEL AND CARGOMASS AND UPDATE STATUS
+//CHECK FUEL LEVEL AND CARGOMASS AND UPDATE STATUS IF VALID
 
-        if (fuelLevel < 10000 && cargoMass > 10000) {
+        if (DataAllValid && (fuelLevel < 10000 && cargoMass > 10000)) {
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass too heavy for launch";
+            faultyItems.style.visibility = "visible";
+            launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+            launchStatus.style.color = "red";
+
+        } else if (DataAllValid && (fuelLevel >= 10000 && cargoMass > 10000)) {
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level high enough for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass too heavy for launch";
+            faultyItems.style.visibility = "visible";
+            launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+            launchStatus.style.color = "red";
+
+        } else if (DataAllValid && (fuelLevel < 10000 && cargoMass <= 10000)) {
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+            faultyItems.style.visibility = "visible";
+            launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+            launchStatus.style.color = "red";
+
+        } else if (DataAllValid && (fuelLevel >= 10000 && cargoMass <= 10000)){
+            document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
+            document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
+            document.getElementById("fuelStatus").innerHTML = `Fuel level high enough for launch`;
+            document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+            faultyItems.style.visibility = "visible";
+            launchStatus.innerHTML = "Shuttle is Ready for Launch";
+            launchStatus.style.color = "green";
+        }
+
+        /* if (fuelLevel < 10000 && cargoMass > 10000) {
             document.getElementById("pilotStatus").innerHTML = `Pilot ${pilot} is ready for launch`;
             document.getElementById("copilotStatus").innerHTML = `Co-pilot ${copilot} is ready for launch`;
             document.getElementById("fuelStatus").innerHTML = `Fuel level too low for launch`;
@@ -63,16 +135,16 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
             faultyItems.style.visibility = "visible";
             launchStatus.innerHTML = "Shuttle is Ready for Launch";
             launchStatus.style.color = "green";
-        }
+        } */
 
     // Validate inputs
-    let pilotStatus = validateInput(pilot);
+    /* let pilotStatus = validateInput(pilot);
     let copilotStatus = validateInput(copilot);
     let fuelStatus = validateInput(fuelLevel);
-    let cargoStatus = validateInput(cargoMass);
+    let cargoStatus = validateInput(cargoMass); */
 
     //Send alerts if inputes are not valid AND hide faulty items
-    if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
+    /* if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
         alert("All fields are required.");
         faultyItems.style.visibility = "hidden";
         launchStatus.innerHTML = "Awaiting Information Before Launch";
@@ -91,7 +163,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
         faultyItems.style.visibility = "hidden";
         launchStatus.innerHTML = "Awaiting Information Before Launch";
         launchStatus.style.color = "black";
-    }    
+    }     */
 
 }
 
