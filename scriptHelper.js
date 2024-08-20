@@ -38,25 +38,16 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
 
         if (pilotStatus === "Empty" || copilotStatus === "Empty" || fuelStatus === "Empty" || cargoStatus === "Empty") {
             alert("All fields are required.");
-            faultyItems.style.visibility = "hidden";
-            launchStatus.innerHTML = "Awaiting Information Before Launch";
-            launchStatus.style.color = "black";
             DataAllValid = false;
         }
 
         if (pilotStatus === "Is a Number" || copilotStatus === "Is a Number") {
             alert("Pilot and Co-pilot names must be strings.");
-            faultyItems.style.visibility = "hidden";
-            launchStatus.innerHTML = "Awaiting Information Before Launch";
-            launchStatus.style.color = "black";
             DataAllValid = false;
         }        
 
         if (fuelStatus === "Not a Number" || cargoStatus === "Not a Number") {
             alert("Fuel level and cargo mass must be numbers.");
-            faultyItems.style.visibility = "hidden";
-            launchStatus.innerHTML = "Awaiting Information Before Launch";
-            launchStatus.style.color = "black";
             DataAllValid = false;
         }    
 
